@@ -44,6 +44,15 @@ const Blog = styled.h2`
   transform: rotate(90deg) translate(-50%, -50%);
   z-index: 1;
   cursor: pointer;
+  transition: transform .1s;
+
+  &:hover {
+    transform: rotate(90deg) translate(-50%, -50%) scale(1.1);
+  }
+
+  &:active {
+    transform: rotate(90deg) translate(-50%, -50%) scale(.9);
+  }
 `;
 
 const Work = styled.h2`
@@ -54,6 +63,15 @@ const Work = styled.h2`
   transform: translate(-50%, -50%) rotate(-90deg);
   z-index: 1;
   cursor: pointer;
+  transition: transform .1s;
+
+  &:hover {
+    transform: translate(-50%, -50%) rotate(-90deg) scale(1.1);
+  }
+
+  &:active {
+    transform: translate(-50%, -50%) rotate(-90deg) scale(.9);
+  }
 `;
 
 const BottomBar = styled.div`
@@ -66,7 +84,7 @@ const BottomBar = styled.div`
   justify-content: space-evenly;
 `;
 
-const BottomBarItem = styled.h2`
+const BottomBarItem = styled(motion.h2)`
   color: ${({theme, aboutPage, clicked}) => clicked && aboutPage ? theme.body : theme.text};
   z-index: 1;
   cursor: pointer;
@@ -152,12 +170,12 @@ export default function Home() {
           </Link>
           <BottomBar>
             <Link href="/about" passHref>
-              <BottomBarItem clicked={clicked} aboutPage>
+              <BottomBarItem {...motionHoverConfig}  clicked={clicked} aboutPage>
                 About.
               </BottomBarItem>
             </Link>
             <Link href="/skills" passHref>
-              <BottomBarItem>
+              <BottomBarItem {...motionHoverConfig} >
                 My Skills.
               </BottomBarItem>
             </Link>
