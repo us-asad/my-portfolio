@@ -1,16 +1,21 @@
 import Head from "next/head";
+import { ThemeProvider } from "styled-components";
+import { PowerButton } from "components";
+import data from "data"
+import "styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
+  const { themes } = data;
+
   return (
-  	<div>
-  		<Head>
-	    	<title>My Portfolio</title>
-	      <meta name="description" content="My Portfolio" />
-	    </Head>
-	    <main className="overflow-x-hidden">
-  			<Component {...pageProps} />
-  		</main>
-  	</div>
+    <div>
+      <ThemeProvider theme={themes.lightTheme}>
+        <main>
+          <PowerButton />
+          <Component {...pageProps} />
+        </main>
+      </ThemeProvider>
+    </div>
   );
 }
 
