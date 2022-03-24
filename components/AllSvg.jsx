@@ -112,7 +112,7 @@ export const YinYang = props => {
       )
 }
 
-export const Anchor = props => {
+export const AnchorSvg = props => {
   return (
     <svg
       aria-hidden="true"
@@ -131,7 +131,7 @@ export const Anchor = props => {
   )
 }
 
-export const Link = props => {
+export const LinkSvg = props => {
   return (
     <svg
       aria-hidden="true"

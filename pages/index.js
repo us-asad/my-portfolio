@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
-import { Logo, SocialIcons, Intro } from "components";
+import { Logo, SocialIcons, Intro, PowerButton } from "components";
 import { YinYang } from "components/AllSvg.jsx";
 
 const motionHoverConfig = {
@@ -145,6 +145,7 @@ export default function Home() {
         <title>Home | Developer portfolio</title>
       </Head>
       <MainContainer>
+        <PowerButton />
         <DarkDiv clicked={clicked} />
         <Container>
           <Logo clicked={clicked} />
