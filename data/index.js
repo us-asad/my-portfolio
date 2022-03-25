@@ -1,20 +1,11 @@
 const data = {
-  themes: {
-    lightTheme: {
-      body:"#FCF6F4",
-      text:"#000000",
-      fontFamily:"'Source Sans Pro', sans-serif",
-      bodyRgba : "252, 246, 244",
-      textRgba:"0,0,0",
-    },
-    darkTheme: {
-      body:"#000000",
-      text:"#FCF6F4",
-      fontFamily:"'Source Sans Pro', sans-serif",
-      bodyRgba:"0,0,0",
-      textRgba : "252, 246, 244",
-    }
-  },
+  homeLogoName: "FF",
+  introText: `
+    <h1>Hi,</h1>
+    <h2>I'm Usasad.</h2>
+    <h6>I design and Code simple yet beautiful websites.<h6>
+  `,
+  email: "mailto:usasad99@gmail.com",
 	workData: [
     {
         id:1,
@@ -141,7 +132,75 @@ const data = {
         imgSrc:"https://res.cloudinary.com/practicaldev/image/fetch/s--rv4I8UwE--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0a9h50milhlf1us6mn4a.png",
         link:"https://dev.to/codebucks/build-sidebar-navigation-menu-in-reactjs-with-react-router-and-framer-motion-for-cool-page-transition-effects-4bc3"
     },
-	]
+	],
+  customTitles: {
+    home: "Home | Dveloper Potfolio",
+    about: "About | Dveloper Potfolio",
+    skills: "Skills | Dveloper Potfolio",
+    work: "My Works | Dveloper Potfolio",
+    blog: "My Blog | Dveloper Potfolio",
+  },
+  socialAccounts: [
+    {
+      name: "github",
+      url: "https://github.com",
+    },
+    {
+      name: "facebook",
+      url: "https://facebook.com",
+    },
+    {
+      name: "telegram",
+      url: "https://telegram.com",
+    },
+    {
+      name: "youtube",
+      url: "https://youtube.com",
+    },
+    // {
+    //   name: "twitter",
+    //   url: "https://youtube.com",
+    // },
+    // {
+    //   name: "linkedin",
+    //   url: "https://linkedin.com",
+    // },
+    // {
+    //   name: "devto",
+    //   url: "https://dev.to",
+    // }
+  ],
+  about: {
+    text: "hi I'm a front-end developer located in Uzbekistand.<br /><br /> I love to create simple yet beautiful websites with great user experience. I'm interested in the whole frontend stack Like trying new things and building great projects. I'm an independent freelancer and blogger. I love to write blogs and read books. I believe everything is an Art when you put your consciousness in it. You can connect with me via social links."
+  }
 }
 
 export default data;
+
+export const lightTheme = {
+    body: "#FCF6F4",
+    text: "#000000",
+    fontFamily: "'Source Sans Pro', sans-serif",
+    bodyRgba: "252, 246, 244",
+    textRgba: "0,0,0",
+}
+
+export const darkTheme = {
+    body: "#000000",
+    text: "#FCF6F4",
+    fontFamily: "'Source Sans Pro', sans-serif",
+    textRgba: "252, 246, 244",
+    bodyRgba: "0,0,0",
+}
+
+export const breakpoints = {
+  sm: 20,
+  md: 30,
+  lg: 45,
+  xl: 60,
+  xxl:75,
+}
+  
+export const mediaQueries = key => {
+  return style => `@media (max-width: ${key}em) { ${style} }`
+}

@@ -1,17 +1,28 @@
+import { useRouter } from "next/router";
 import Head from "next/head";
-import { ThemeProvider } from "styled-components";
-import data from "data"
+import { lightTheme } from "data"
+import { AnimatePresence } from "framer-motion";
+import styled, { ThemeProvider } from "styled-components";
+import { SoundBar } from "components"
 import "styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
-  const { themes } = data;
+const Main = styled.main`
+  & *::selection {
+    color: #fff;
+    background: #262626;
+  }
+`;
 
+function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <ThemeProvider theme={themes.lightTheme}>
-        <main>
-          <Component {...pageProps} />
-        </main>
+      <ThemeProvider theme={lightTheme}>
+        <AnimatePresence exitBeforeEnter>
+          <Main >
+            <SoundBar />
+            <Component {...pageProps} />
+          </Main>
+        </AnimatePresence>
       </ThemeProvider>
     </div>
   );

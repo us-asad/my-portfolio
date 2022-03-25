@@ -4,4 +4,7 @@ export { default as SocialIcons } from "./SocialIcons.jsx";
 export { default as Intro } from "./Intro.jsx"; 
 export { default as BlogCard } from "./BlogCard.jsx"; 
 export { default as Anchor } from "./Anchor.jsx"; 
-
+export { default as ParticleComponent } from "./ParticleComponent.jsx"; 
+export { default as BigTitle } from "./BigTitle.jsx"; 
+export { default as WorkCard } from "./WorkCard.jsx"; 
+export { default as SoundBar } from "./SoundBar.jsx"; 

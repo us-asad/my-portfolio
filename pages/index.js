@@ -3,24 +3,54 @@ import Head from "next/head";
 import Link from "next/link";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
-import { Logo, SocialIcons, Intro, PowerButton } from "components";
 import { YinYang } from "components/AllSvg.jsx";
+import { Intro, PowerButton, SocialIcons, Logo } from "components";
+import data, { mediaQueries } from "data";
 
 const motionHoverConfig = {
-  whileHover: {scale: 1.1},
-  whileTap: {scale: 0.9}
-}
+  whileHover: {
+    scale: 1.1
+  },
+  whileTap: {
+    scale: 0.9
+  }
+};
 
-const MainContainer = styled.div`
-  background: ${props => props.theme.body}
+const motionAnimationConfig = isYPlusValue => ({
+  initial: {
+    y: isYPlusValue ? 200 : -200,
+    transition: { type: "spring", duration: 1.5, delay: 1 },
+  },
+  animate: {
+    y: 0,
+    transition: { type: "spring", duration: 1.5, delay: 1 },
+  }
+});
+
+const MainContainer = styled(motion.div)`
+  background: ${({theme}) => theme.body};
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 
-  h2,h3,h4,h5,h6 {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: "Karla", sans-serif;
     font-weight: 500;
+  }
+
+  h2 {
+    ${mediaQueries(40)`
+      font-size:1.2em;
+    `};
+
+    ${mediaQueries(30)`
+      font-size:1em;
+    `};
   }
 `;
 
@@ -28,49 +58,86 @@ const Container = styled.div`
   padding: 2rem;
 `;
 
+const rotateAnimation = keyframes`
+  from {
+    transform: rotate(0) ;
+  }
+  to {
+    transform: rotate(360deg) ;
+  }
+`;
+
+const Center = styled.button`
+  position: absolute;
+  top: ${({clicked}) => clicked ? "85%" : "50%"};
+  left: ${({clicked}) => clicked ? "92%" : "50%"};
+  transform: translate(-50%, -50%);
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 1s ease;
+
+  & > *:first-child {
+    animation: ${rotateAnimation} infinite 1.5s linear;
+  }
+  & > *:last-child {
+    display: ${({clicked}) => clicked ? "none" : "inline-block"};
+    padding-top: 1rem;
+  }
+
+  @media only screen and (max-width: 50em) {
+    top: ${({clicked}) => clicked ? "90%" : "50%"};
+    left: ${({clicked}) => clicked ? "90%" : "50%"};
+    width: ${({clicked}) => clicked ? "80px" : "150px"};
+    height: ${({clicked}) => clicked ? "80px" : "150px"};
+  }
+
+  @media only screen and (max-width: 30em) {
+    width: ${({clicked}) => clicked ? "40px" : "150px"};
+    height: ${({clicked}) => clicked ? "40px" : "150px"};
+  }
+`;
+
 const Contact = styled.a`
-  color: ${props => props.theme.text};
+  color: ${({clicked, theme}) => clicked ? theme.body : theme.text};
   position: absolute;
   top: 2rem;
   right: calc(1rem + 2vw);
+  text-decoration: none;
   z-index: 1;
 `;
 
-const Blog = styled.h2`
-  color: ${props => props.theme.text};
+const Blog = styled.a`
+  color: ${({clicked, theme}) => clicked ? theme.body : theme.text};
   position: absolute;
   top: 50%;
   right: calc(1rem + 2vw);
   transform: rotate(90deg) translate(-50%, -50%);
   z-index: 1;
+  text-decoration: none;
   cursor: pointer;
-  transition: transform .1s;
 
-  &:hover {
-    transform: rotate(90deg) translate(-50%, -50%) scale(1.1);
-  }
-
-  &:active {
-    transform: rotate(90deg) translate(-50%, -50%) scale(.9);
+  @media only screen and (max-width: 50em) {
+    text-shadow: ${({clicked}) => clicked ? "0 0 4px #000" : "none"};
   }
 `;
 
-const Work = styled.h2`
-  color: ${({theme, clicked}) => clicked ? theme.body : theme.text};
+const Work = styled.a`
+  color: ${({clicked, theme}) => clicked ? theme.body : theme.text};
   position: absolute;
   top: 50%;
   left: calc(1rem + 2vw);
   transform: translate(-50%, -50%) rotate(-90deg);
   z-index: 1;
+  text-decoration: none;
   cursor: pointer;
-  transition: transform .1s;
 
-  &:hover {
-    transform: translate(-50%, -50%) rotate(-90deg) scale(1.1);
-  }
-
-  &:active {
-    transform: translate(-50%, -50%) rotate(-90deg) scale(.9);
+  @media only screen and (max-width: 50em) {
+    text-shadow: ${({clicked}) => clicked ? "0 0 4px #000" : "none"};
   }
 `;
 
@@ -79,49 +146,22 @@ const BottomBar = styled.div`
   bottom: 1rem;
   left: 0;
   right: 0;
-  widthL 100%;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
 `;
 
-const BottomBarItem = styled(motion.h2)`
-  color: ${({theme, aboutPage, clicked}) => clicked && aboutPage ? theme.body : theme.text};
+const About = styled.a`
+  color: ${({clicked, theme}) => clicked ? theme.body : theme.text};
+  text-decoration: none;
   z-index: 1;
   cursor: pointer;
 `;
 
-const rotateAnimation = keyframes`
-  from  {
-    transfor: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const Center = styled.button`
-  position: absolute;
-  top: ${({clicked}) => clicked ? 85 : 50}%;
-  left: ${({clicked}) => clicked ? 92 : 50}%;
-  transform: translate(-50%, -50%);
-  border: 0;
-  outline: 0;
-  background: transparent;
+const Skills = styled.a`
+  color: ${({theme}) => theme.text};
+  text-decoration: none;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: all 1s ease;
-
-  &>:first-child {
-    animation: ${rotateAnimation} infinite 1.5s linear;
-  }
-
-  &>:last-child {
-    display: ${({clicked}) => clicked ? "none" : "inline-block"};
-    padding-top: 1rem
-  }
 `;
 
 const DarkDiv = styled.div`
@@ -129,56 +169,134 @@ const DarkDiv = styled.div`
   top: 0;
   bottom: 0;
   right: 50%;
-  width: ${({clicked}) => clicked ? 50 : 0}%;
-  height: ${({clicked}) => clicked ? 100 : 0}%;
+  width: ${({clicked}) => clicked ? "50%" : "0%"};
+  background-color: #000000;
+  height: ${({clicked}) => clicked ? "100%" : "0%"};
+  transition: height 0.5s ease, width 1s ease 0.5s;
   z-index: 1;
-  background: #000;
-  transition: height .5s ease, width 1s ease .5s;
+
+  ${({clicked}) =>
+    clicked
+    ? mediaQueries(50)`
+        height: 50%;
+        right:0;
+        width: 100%;
+        transition: width 0.5s ease, height 1s ease 0.5s;
+    `
+    : mediaQueries(50)`
+        height: 0;
+        width: 0;
+    `
+  };
 `;
 
 export default function Home() {
   const [clicked, setClicked] = useState(false);
+  const [path, setPath] = useState("");
+
+  const handleClick = () => setClicked(!clicked);
+
+  const moveY = {
+    y: "-100%",
+  };
+  const moveX = {
+    x: `${path === "Work" ? "100%" : "-100%"}`,
+  };
+  const isMobileBreakpoint = typeof window !== "undefined" ? window.matchMedia("(max-width: 50em)").matches : 0;
 
   return (
     <>
       <Head>
-        <title>Home | Developer portfolio</title>
-      </Head>
-      <MainContainer>
-        <PowerButton />
+        <title>{data.customTitles.home}</title>
+      </Head> 
+      <MainContainer
+        key="modal"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={path === "About" || path === "Skills" ? moveY : moveX}
+        transition={{ duration: 0.5 }}
+      >
         <DarkDiv clicked={clicked} />
         <Container>
-          <Logo clicked={clicked} />
-          <SocialIcons clicked={clicked} />
-          <Center clicked={clicked} onClick={() => setClicked(prev => !prev)}>
-            <YinYang width={clicked ? 120 : 200} width={clicked ? 120 : 200} />
-            <span>click here</span>
+          <Logo theme={clicked ? "dark" : "light"} />
+          <PowerButton />
+          <SocialIcons theme={isMobileBreakpoint ? "light" : clicked ? "dark" : "light"} />
+          <Center clicked={clicked}>
+            <YinYang
+              onClick={() => handleClick()}
+              width={isMobileBreakpoint ? (clicked ? 80 : 150) : (clicked ? 120 : 200)}
+              height={isMobileBreakpoint ? (clicked ? 80 : 150) : (clicked ? 120 : 200)}
+              fill="currentColor"
+            />
+            <span style={{fontSize: "15px"}}>click here</span>
           </Center>
-          <Contact href="mailto:usasad99@gmail.com" target="_blank">
-            <motion.h2 {...motionHoverConfig} >
+          <Contact
+            clicked={isMobileBreakpoint ? +clicked : 0}
+            target="_blank"
+            href={data.email}
+            title={data.email}
+          >
+            <motion.h3
+              {...motionAnimationConfig(false)}
+              {...motionHoverConfig}
+            >
               Say hi..
-            </motion.h2>
+            </motion.h3>
           </Contact>
-          <Link href="/blog" passHref>
-            <Blog>
-              Blog
+          <Link href="/blog">
+            <Blog clicked={isMobileBreakpoint ? +clicked : 0} onClick={() => setPath("Blog")}>
+              <motion.h2
+                {...motionAnimationConfig(false)}
+                {...motionHoverConfig}
+              >
+                Blog
+              </motion.h2>
             </Blog>
           </Link>
-          <Link href="/work" passHref>
-            <Work clicked={clicked}>
-              Work
+          <Link href="/work">
+            <Work clicked={+clicked}>
+              <motion.h2
+                onClick={() => setPath("Work")}
+                {...motionAnimationConfig(false)}
+                {...motionHoverConfig}
+              >
+                Work
+              </motion.h2>
             </Work>
           </Link>
           <BottomBar>
-            <Link href="/about" passHref>
-              <BottomBarItem {...motionHoverConfig}  clicked={clicked} aboutPage>
-                About.
-              </BottomBarItem>
+            <Link href="/about">
+              <About
+                onClick={() => setClicked(false)}
+                clicked={isMobileBreakpoint ? +false : +clicked}
+              >
+                <motion.h2
+                  onClick={() => setPath("About")}
+                  initial={{
+                    y: 200,
+                    transition: { type: "spring", duration: 1.5, delay: 1 },
+                  }}
+                  animate={{
+                    y: 0,
+                    transition: { type: "spring", duration: 1.5, delay: 1 },
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  About.
+                </motion.h2>
+              </About>
             </Link>
-            <Link href="/skills" passHref>
-              <BottomBarItem {...motionHoverConfig} >
-                My Skills.
-              </BottomBarItem>
+            <Link href="skills">
+              <Skills>
+                <motion.h2
+                  onClick={() => setPath("Skills")}
+                  {...motionAnimationConfig(true)}
+                  {...motionHoverConfig}
+                >
+                  My Skills.
+                </motion.h2>
+              </Skills>
             </Link>
           </BottomBar>
         </Container>
@@ -186,4 +304,4 @@ export default function Home() {
       </MainContainer>
     </>
   );
-}
+};
