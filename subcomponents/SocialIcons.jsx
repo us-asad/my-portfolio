@@ -90,7 +90,7 @@ export default function SocialIcons({ theme }) {
 
         return (
           <motion.div key={index} {...motionAnimationConfig(index === 0 || index === 3 ? 1 : index === 1 ? 1.2 : index === 2 ? 1.4 : 1)} >
-            <a target="_blank" href={url} >
+            <a rel="noreferrer" target="_blank" href={url} >
               {iconName === "github"
                 ? <Github {...svgStyleConfig} />
                 : iconName === "youtube"

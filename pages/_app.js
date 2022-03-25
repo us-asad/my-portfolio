@@ -3,7 +3,7 @@ import Head from "next/head";
 import { lightTheme } from "data"
 import { AnimatePresence } from "framer-motion";
 import styled, { ThemeProvider } from "styled-components";
-import { SoundBar } from "components"
+import { SoundBar } from "subcomponents"
 import "styles/globals.css";
 
 const Main = styled.main`

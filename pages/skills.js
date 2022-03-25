@@ -2,7 +2,7 @@ import Head from "next/head";
 import { motion } from "framer-motion";
 import styled, { ThemeProvider } from "styled-components";
 import data, { lightTheme, mediaQueries } from "data";
-import { SocialIcons, PowerButton, Logo, ParticleComponent, BigTitle } from "components";
+import { SocialIcons, PowerButton, Logo, ParticleComponent, BigTitle } from "subcomponents";
 import { Design, Develope } from "components/AllSvg.jsx";
 
 const Box = styled(motion.div)`
@@ -36,7 +36,7 @@ const Main = styled(motion.div)`
   border: 2px solid ${({theme}) => theme.text};
   color: ${({theme}) => theme.text};
   padding: 2rem;
-  width: 30vw;
+  width: 50vw;
   height: 60vh;
   z-index: 3;
   line-height: 1.5;
@@ -149,44 +149,18 @@ export default function MySkillsPage() {
           <ParticleComponent theme="light" />
           <Main>
             <Title>
-              <Design width={40} height={40} /> Designer
+              <Develope width={40} height={40} /> {data.skills.title}
             </Title>
             <Description>
-              I love to create design which speaks, Keep it clean, minimal and
-              simple.
-            </Description>
-            <Description>
-              <strong>I like to Design</strong> <br />
-              <ul>
-                <li>Web Design</li>
-                <li>Mobile Apps</li>
-              </ul>
-            </Description>
-            <Description>
-              <strong>Tools</strong> <br />
-              <ul>
-                <li>Figma</li>
-              </ul>
-            </Description>
-          </Main>
-          <Main>
-            <Title>
-              <Develope width={40} height={40} /> Frontend Developer
-            </Title>
-            <Description>
-              I value business or brand for which i'm creating, thus i enjoy
-              bringing new ideas to life.
+              {data.skills.subtitle}
             </Description>
             <Description>
               <strong>Skills</strong> <br />
-              <p>
-                Html, Css, Js, React, Redux, Sass, Bootstrap, Tailwind, Firebase
-                etc.
-              </p>
+              <p>{data.skills.skills}</p>
             </Description>
             <Description>
               <strong>Tools</strong> <br />
-              <p>VScode, Github, Codepen etc.</p>
+              <p>{data.skills.tools}</p>
             </Description>
           </Main>
           <BigTitle text="skills" top="80%" right="30%" />

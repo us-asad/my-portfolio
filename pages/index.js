@@ -4,7 +4,8 @@ import Link from "next/link";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import { YinYang } from "components/AllSvg.jsx";
-import { Intro, PowerButton, SocialIcons, Logo } from "components";
+import { Intro } from "components";
+import { PowerButton, SocialIcons, Logo } from "subcomponents";
 import data, { mediaQueries } from "data";
 
 const motionHoverConfig = {
@@ -233,6 +234,7 @@ export default function Home() {
           <Contact
             clicked={isMobileBreakpoint ? +clicked : 0}
             target="_blank"
+            rel="noreferrer"
             href={data.email}
             title={data.email}
           >
@@ -243,7 +245,7 @@ export default function Home() {
               Say hi..
             </motion.h3>
           </Contact>
-          <Link href="/blog">
+          <Link href="/blog" passHref>
             <Blog clicked={isMobileBreakpoint ? +clicked : 0} onClick={() => setPath("Blog")}>
               <motion.h2
                 {...motionAnimationConfig(false)}
@@ -253,7 +255,7 @@ export default function Home() {
               </motion.h2>
             </Blog>
           </Link>
-          <Link href="/work">
+          <Link href="/work" passHref>
             <Work clicked={+clicked}>
               <motion.h2
                 onClick={() => setPath("Work")}
@@ -265,7 +267,7 @@ export default function Home() {
             </Work>
           </Link>
           <BottomBar>
-            <Link href="/about">
+            <Link href="/about" passHref>
               <About
                 onClick={() => setClicked(false)}
                 clicked={isMobileBreakpoint ? +false : +clicked}
@@ -287,7 +289,7 @@ export default function Home() {
                 </motion.h2>
               </About>
             </Link>
-            <Link href="skills">
+            <Link href="skills" passHref>
               <Skills>
                 <motion.h2
                   onClick={() => setPath("Skills")}

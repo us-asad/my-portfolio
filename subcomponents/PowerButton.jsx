@@ -17,7 +17,7 @@ const Power = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 3;
+  z-index: 5;
   cursor: pointer;
 
   &:hover {

@@ -172,6 +172,12 @@ const data = {
   ],
   about: {
     text: "hi I'm a front-end developer located in Uzbekistand.<br /><br /> I love to create simple yet beautiful websites with great user experience. I'm interested in the whole frontend stack Like trying new things and building great projects. I'm an independent freelancer and blogger. I love to write blogs and read books. I believe everything is an Art when you put your consciousness in it. You can connect with me via social links."
+  },
+  skills: {
+    title: "Frontend Developer",
+    subtitle: "I value business or brand for which i'm creating, thus i enjoy bringing new ideas to life.",
+    skills: "Html, Css, Js, React, Redux, Sass, Bootstrap, Tailwind, Firebase etc.",
+    tools: "VScode, Github, Codepen etc."
   }
 }
 

@@ -44,8 +44,8 @@ export default function Anchor({ number }) {
       const diff = Math.max(bodyHeight - (scrollPosition + windowSize));
       const diffP = (diff * 100) / (bodyHeight - windowSize);
 
-      let a = ref.current.style.transform = `translateY(-${diffP}%)`;
-      let b = hiddenRef.current.style.display = window.pageYOffset > 5 ? "none" : "block";
+      ref.current.style.transform = `translateY(-${diffP}%)`;
+      hiddenRef.current.style.display = window.pageYOffset > 5 ? "none" : "block";
     };
 
     window.addEventListener("scroll", handleScroll);

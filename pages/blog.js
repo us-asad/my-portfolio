@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Anchor, SocialIcons, PowerButton, Logo, BigTitle, BlogCard, Loading } from "components";
+import { BlogCard } from "components";
+import { Anchor, SocialIcons, PowerButton, Logo, BigTitle } from "subcomponents";
 import data ,{ mediaQueries } from "data";
 
 const MainContainer = styled(motion.div)`

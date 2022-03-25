@@ -2,7 +2,7 @@ import Head from "next/head";
 import { motion } from 'framer-motion'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 import parse from 'html-react-parser';
-import { SocialIcons, PowerButton, Logo, ParticleComponent, BigTitle } from "components";
+import { SocialIcons, PowerButton, Logo, ParticleComponent, BigTitle } from "subcomponents";
 import data, { darkTheme, mediaQueries } from 'data'
 
 const Box = styled(motion.div)`

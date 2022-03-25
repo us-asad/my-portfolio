@@ -3,7 +3,8 @@ import Head from "next/head";
 import { motion } from "framer-motion";
 import styled, { ThemeProvider } from "styled-components";
 import { YinYang } from "components/AllSvg.jsx";
-import { SocialIcons, PowerButton, Logo, BigTitle, WorkCard } from "components";
+import { WorkCard } from "components";
+import { SocialIcons, PowerButton, Logo, BigTitle } from "subcomponents";
 import data, { darkTheme, mediaQueries } from "data";
 
 const Box = styled(motion.div)`
