@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -22,6 +23,9 @@ const ATag = styled.a`
 export default function NotFound() {
   return (
     <Box>
+      <Head>
+        <title>404 | Page Not Foundr</title>
+      </Head>
       <h1>404 | Page Not Found</h1>
       <Link href="/">
         <ATag>Back to Home</ATag>

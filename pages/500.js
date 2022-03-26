@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -20,6 +21,9 @@ const Subtitle = styled.p`
 export default function NotFound() {
   return (
     <Box>
+      <Head>
+        <title>International Server Error</title>
+      </Head>
       <h1>International Server Error</h1>
       <Subtitle>Please Try Again Later</Subtitle>
     </Box>
