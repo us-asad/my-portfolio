@@ -101,31 +101,29 @@ export default function Work({ data }) {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={darkTheme}>
       <Head>
         <title>{workPageTitle}</title>
       </Head>
-      <ThemeProvider theme={darkTheme}>
-        <Box
-          worksLength={workData.length}
-          key="work"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1 } }}
-          exit={{ opacity: 0, transition: { duration: 0.5 } }}
-        >
-          <Logo theme="dark" />
-          <PowerButton />
-          <SocialIcons theme="dark" />
-          <Main ref={ref} variants={container} initial="hidden" animate="show">
-            {workData.map(data => <WorkCard key={data.id} data={data} />)}
-          </Main>
-          <BigTitle text="work" top="10%" right="20%" />
-          <Rotate ref={yinyang}>
-            <YinYang width={80} height={80} fill={darkTheme.text} />
-          </Rotate>
-        </Box>
-      </ThemeProvider>
-    </>
+      <Box
+        worksLength={workData.length}
+        key="work"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 1 } }}
+        exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      >
+        <Logo theme="dark" />
+        <PowerButton />
+        <SocialIcons theme="dark" />
+        <Main ref={ref} variants={container} initial="hidden" animate="show">
+          {workData.map(data => <WorkCard key={data.id} data={data} />)}
+        </Main>
+        <BigTitle text="work" top="10%" right="20%" />
+        <Rotate ref={yinyang}>
+          <YinYang width={80} height={80} fill={darkTheme.text} />
+        </Rotate>
+      </Box>
+    </ThemeProvider>
   );
 };
 

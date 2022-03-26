@@ -69,32 +69,30 @@ export default function Blog({ data }) {
   }, []);
 
   return (
-    <>
+    <MainContainer
+      variants={container}
+      initial="hidden"
+      animate="show"
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+    >
       <Head>
         <title>{blogPageTitle}</title>
       </Head>
-      <MainContainer
-        variants={container}
-        initial="hidden"
-        animate="show"
-        exit={{ opacity: 0, transition: { duration: 0.5 } }}
-      >
-        <Container>
-          <Logo />
-          <PowerButton />
-          <SocialIcons />
-          <Anchor number={number} />
-          <Center>
-            <Grid variants={container} initial="hidden" animate="show">
-              {blogData.map((blog) => (
-                <BlogCard key={blog.id} blog={blog} />
-              ))}
-            </Grid>
-          </Center>
-          <BigTitle text="blog" top="5rem" left="5rem" />
-        </Container>
-      </MainContainer>
-    </>
+      <Container>
+        <Logo />
+        <PowerButton />
+        <SocialIcons />
+        <Anchor number={number} />
+        <Center>
+          <Grid variants={container} initial="hidden" animate="show">
+            {blogData.map((blog) => (
+              <BlogCard key={blog.id} blog={blog} />
+            ))}
+          </Grid>
+        </Center>
+        <BigTitle text="blog" top="5rem" left="5rem" />
+      </Container>
+    </MainContainer>
   );
 };
 

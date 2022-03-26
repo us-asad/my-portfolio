@@ -209,110 +209,108 @@ export default function Home({ data }) {
   const isMobileBreakpoint = typeof window !== "undefined" ? window.matchMedia("(max-width: 50em)").matches : 0;
 
   return (
-    <>
+    <MainContainer
+      key="modal"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={path === "About" || path === "Skills" ? moveY : moveX}
+      transition={{ duration: 0.5 }}
+    >
       <Head>
         <title>{homePageTitle}</title>
-      </Head> 
-      <MainContainer
-        key="modal"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={path === "About" || path === "Skills" ? moveY : moveX}
-        transition={{ duration: 0.5 }}
-      >
-        <DarkDiv clicked={clicked} />
-        <Container>
-          <Logo theme={clicked ? "dark" : "light"} />
-          <PowerButton />
-          <SocialIcons theme={isMobileBreakpoint ? "light" : clicked ? "dark" : "light"} />
-          <Center clicked={clicked}>
-            <YinYang
-              onClick={() => handleClick()}
-              width={isMobileBreakpoint ? (clicked ? 80 : 150) : (clicked ? 120 : 200)}
-              height={isMobileBreakpoint ? (clicked ? 80 : 150) : (clicked ? 120 : 200)}
-              fill="currentColor"
-            />
-            <span style={{fontSize: "15px"}}>click here</span>
-          </Center>
-          <Contact
-            clicked={isMobileBreakpoint ? +clicked : 0}
-            target="_blank"
-            rel="noreferrer"
-            href={`mailto:${homeData.email}`}
-            title={data.email}
+      </Head>
+      <DarkDiv clicked={clicked} />
+      <Container>
+        <Logo theme={clicked ? "dark" : "light"} />
+        <PowerButton />
+        <SocialIcons theme={isMobileBreakpoint ? "light" : clicked ? "dark" : "light"} />
+        <Center clicked={clicked}>
+          <YinYang
+            onClick={() => handleClick()}
+            width={isMobileBreakpoint ? (clicked ? 80 : 150) : (clicked ? 120 : 200)}
+            height={isMobileBreakpoint ? (clicked ? 80 : 150) : (clicked ? 120 : 200)}
+            fill="currentColor"
+          />
+          <span style={{fontSize: "15px"}}>click here</span>
+        </Center>
+        <Contact
+          clicked={isMobileBreakpoint ? +clicked : 0}
+          target="_blank"
+          rel="noreferrer"
+          href={`mailto:${homeData.email}`}
+          title={data.email}
+        >
+          <motion.h3
+            {...motionAnimationConfig(false)}
+            {...motionHoverConfig}
           >
-            <motion.h3
+            Say hi..
+          </motion.h3>
+        </Contact>
+        <Link href="/blog" passHref>
+          <Blog clicked={isMobileBreakpoint ? +clicked : 0} onClick={() => setPath("Blog")}>
+            <motion.h2
               {...motionAnimationConfig(false)}
               {...motionHoverConfig}
             >
-              Say hi..
-            </motion.h3>
-          </Contact>
-          <Link href="/blog" passHref>
-            <Blog clicked={isMobileBreakpoint ? +clicked : 0} onClick={() => setPath("Blog")}>
+              Blog
+            </motion.h2>
+          </Blog>
+        </Link>
+        <Link href="/work" passHref>
+          <Work clicked={+clicked}>
+            <motion.h2
+              onClick={() => setPath("Work")}
+              {...motionAnimationConfig(false)}
+              {...motionHoverConfig}
+            >
+              Work
+            </motion.h2>
+          </Work>
+        </Link>
+        <BottomBar>
+          <Link href="/about" passHref>
+            <About
+              onClick={() => setClicked(false)}
+              clicked={isMobileBreakpoint ? +false : +clicked}
+            >
               <motion.h2
-                {...motionAnimationConfig(false)}
+                onClick={() => setPath("About")}
+                initial={{
+                  y: 200,
+                  transition: { type: "spring", duration: 1.5, delay: 1 },
+                }}
+                animate={{
+                  y: 0,
+                  transition: { type: "spring", duration: 1.5, delay: 1 },
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                About.
+              </motion.h2>
+            </About>
+          </Link>
+          <Link href="/skills" passHref>
+            <Skills>
+              <motion.h2
+                onClick={() => setPath("Skills")}
+                {...motionAnimationConfig(true)}
                 {...motionHoverConfig}
               >
-                Blog
+                My Skills.
               </motion.h2>
-            </Blog>
+            </Skills>
           </Link>
-          <Link href="/work" passHref>
-            <Work clicked={+clicked}>
-              <motion.h2
-                onClick={() => setPath("Work")}
-                {...motionAnimationConfig(false)}
-                {...motionHoverConfig}
-              >
-                Work
-              </motion.h2>
-            </Work>
-          </Link>
-          <BottomBar>
-            <Link href="/about" passHref>
-              <About
-                onClick={() => setClicked(false)}
-                clicked={isMobileBreakpoint ? +false : +clicked}
-              >
-                <motion.h2
-                  onClick={() => setPath("About")}
-                  initial={{
-                    y: 200,
-                    transition: { type: "spring", duration: 1.5, delay: 1 },
-                  }}
-                  animate={{
-                    y: 0,
-                    transition: { type: "spring", duration: 1.5, delay: 1 },
-                  }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  About.
-                </motion.h2>
-              </About>
-            </Link>
-            <Link href="/skills" passHref>
-              <Skills>
-                <motion.h2
-                  onClick={() => setPath("Skills")}
-                  {...motionAnimationConfig(true)}
-                  {...motionHoverConfig}
-                >
-                  My Skills.
-                </motion.h2>
-              </Skills>
-            </Link>
-          </BottomBar>
-        </Container>
-        {clicked ? <Intro
-            textH1={homeData.introH1Text}
-            textH2={homeData.introH2Text}
-            textH6={homeData.introH6Text}
-            clicked={clicked}
-          /> : null}
-      </MainContainer>
-    </>
+        </BottomBar>
+      </Container>
+      {clicked ? <Intro
+          textH1={homeData.introH1Text}
+          textH2={homeData.introH2Text}
+          textH6={homeData.introH6Text}
+          clicked={clicked}
+        /> : null}
+    </MainContainer>
   );
 };
 

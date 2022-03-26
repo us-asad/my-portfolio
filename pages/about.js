@@ -88,40 +88,38 @@ export default function About({ data }) {
   const { aboutData, aboutPageTitle } = data;
 
   return (
-    <>
+    <ThemeProvider theme={darkTheme}>
       <Head>
         <title>{aboutPageTitle}</title>
       </Head>
-      <ThemeProvider theme={darkTheme}>
-        <Box
-          key='skills'
+      <Box
+        key='skills'
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 0.5 } }}
+        exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      >
+        <Logo theme='dark' />
+        <PowerButton />
+        <SocialIcons theme='dark' />
+        <ParticleComponent theme='dark' />
+        <SpaceMan
+          initial={{ right: '-20%', top: '100%' }}
+          animate={{
+            right: '5%',
+            top: '10%',
+            transition: { duration: 2, delay: 0.5 },
+          }}>
+            <img src="/images/spaceman.png"  alt="spaceman" />
+        </SpaceMan>
+        <Main
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 0.5 } }}
-          exit={{ opacity: 0, transition: { duration: 0.5 } }}
+          animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
         >
-          <Logo theme='dark' />
-          <PowerButton />
-          <SocialIcons theme='dark' />
-          <ParticleComponent theme='dark' />
-          <SpaceMan
-            initial={{ right: '-20%', top: '100%' }}
-            animate={{
-              right: '5%',
-              top: '10%',
-              transition: { duration: 2, delay: 0.5 },
-            }}>
-              <img src="/images/spaceman.png"  alt="spaceman" />
-          </SpaceMan>
-          <Main
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
-          >
-            {parse(aboutData.text.html)}
-          </Main>
-          <BigTitle text='about' top='10%' left='5%' />
-        </Box>
-      </ThemeProvider>
-    </>
+          {parse(aboutData.text.html)}
+        </Main>
+        <BigTitle text='about' top='10%' left='5%' />
+      </Box>
+    </ThemeProvider>
   );
 }
 

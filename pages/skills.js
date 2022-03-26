@@ -135,41 +135,39 @@ export default function Skills({ data }) {
   const { skillsData, skillsPageTitle } = data;
 
   return (
-    <>
+    <ThemeProvider theme={lightTheme}>
       <Head>
         <title>{skillsPageTitle}</title>
       </Head>
-      <ThemeProvider theme={lightTheme}>
-        <Box
-          key="skills"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1 } }}
-          exit={{ opacity: 0, transition: { duration: 0.5 } }}
-        >
-          <Logo theme="light" />
-          <PowerButton />
-          <SocialIcons theme="light" />
-          <ParticleComponent theme="light" />
-          <Main>
-            <Title>
-              <Develope width={40} height={40} /> {skillsData.title}
-            </Title>
-            <Description>
-              {skillsData.subtitle}
-            </Description>
-            <Description>
-              <strong>Skills</strong> <br />
-              <p>{skillsData.skills}</p>
-            </Description>
-            <Description>
-              <strong>Tools</strong> <br />
-              <p>{skillsData.tools}</p>
-            </Description>
-          </Main>
-          <BigTitle text="skills" top="80%" right="30%" />
-        </Box>
-      </ThemeProvider>
-    </>
+      <Box
+        key="skills"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 1 } }}
+        exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      >
+        <Logo theme="light" />
+        <PowerButton />
+        <SocialIcons theme="light" />
+        <ParticleComponent theme="light" />
+        <Main>
+          <Title>
+            <Develope width={40} height={40} /> {skillsData.title}
+          </Title>
+          <Description>
+            {skillsData.subtitle}
+          </Description>
+          <Description>
+            <strong>Skills</strong> <br />
+            <p>{skillsData.skills}</p>
+          </Description>
+          <Description>
+            <strong>Tools</strong> <br />
+            <p>{skillsData.tools}</p>
+          </Description>
+        </Main>
+        <BigTitle text="skills" top="80%" right="30%" />
+      </Box>
+    </ThemeProvider>
   );
 };
 
