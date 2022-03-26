@@ -80,7 +80,6 @@ const Main = styled(motion.div)`
 `;
 
 export default function About({ data }) {
-  console.log(data)
   const { aboutData, aboutPageTitle } = data;
 
   return (
