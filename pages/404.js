@@ -7,6 +7,7 @@ const Box = styled.div`
   height: 100vh;
   background: #000;
   color: #fff;
+  font-family: 'Ubuntu Mono', monospace;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,13 +21,19 @@ const ATag = styled.a`
   cursor: pointer;
 `;
 
+const NotFoundTitle = styled.h1`
+  font-size: 35px;
+  font-style: italic;
+  color: #fff;
+`;
+
 export default function NotFound() {
   return (
     <Box>
       <Head>
-        <title>404 | Page Not Foundr</title>
+        <title>404 | Page Not Found</title>
       </Head>
-      <h1>404 | Page Not Found</h1>
+      <NotFoundTitle>404 | Page Not Found</NotFoundTitle>
       <Link href="/">
         <ATag>Back to Home</ATag>
       </Link>

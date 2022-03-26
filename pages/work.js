@@ -12,7 +12,7 @@ const Box = styled(motion.div)`
   background-color: ${({theme}) => theme.body};
   position: relative;
   display: flex;
-  height: ${({worksLength}) => worksLength * 60}vh;
+  height: ${({worksLength}) => worksLength < 2 ? 100 : worksLength * 60}vh;
 `;
 
 const Main = styled(motion.ul)`
@@ -70,6 +70,13 @@ const Rotate = styled.span`
   `};
 `;
 
+const NotFoundTitle = styled.h1`
+	font-size: 35px;
+	font-family: 'Ubuntu Mono', monospace;
+  font-style: italic;
+  color: #fff;
+`;
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -116,7 +123,10 @@ export default function Work({ data }) {
         <PowerButton />
         <SocialIcons theme="dark" />
         <Main ref={ref} variants={container} initial="hidden" animate="show">
-          {workData.map(data => <WorkCard key={data.id} data={data} />)}
+          {workData.length 
+          	? workData.map(data => <WorkCard key={data.id} data={data} />)
+          	: <NotFoundTitle>no works yet</NotFoundTitle>
+          }
         </Main>
         <BigTitle text="work" top="10%" right="20%" />
         <Rotate ref={yinyang}>

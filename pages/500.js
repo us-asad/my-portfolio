@@ -7,6 +7,7 @@ const Box = styled.div`
   height: 100vh;
   background: #000;
   color: #fff;
+  font-family: 'Ubuntu Mono', monospace;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,6 +17,13 @@ const Box = styled.div`
 const Subtitle = styled.p`
   margin-top: 20px;
   font-size: 20px;
+  color: red
+`;
+
+const NotFoundTitle = styled.h1`
+  font-size: 35px;
+  font-style: italic;
+  color: #fff;
 `;
 
 export default function NotFound() {
@@ -24,7 +32,7 @@ export default function NotFound() {
       <Head>
         <title>International Server Error</title>
       </Head>
-      <h1>International Server Error</h1>
+      <NotFoundTitle>International Server Error</NotFoundTitle>
       <Subtitle>Please Try Again Later</Subtitle>
     </Box>
   );

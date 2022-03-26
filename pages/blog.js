@@ -19,6 +19,7 @@ const Container = styled.div`
   background-color: ${({theme}) => `rgba(${theme.bodyRgba},0.8)`};
   width: 100%;
   height: auto;
+  min-height: 100vh;
   position: relative;
   padding-bottom: 5rem;
 
@@ -45,6 +46,13 @@ const Grid = styled(motion.div)`
   ${mediaQueries(50)`
     grid-template-columns: 100%;  
   `};
+`;
+
+const NotFoundTitle = styled.h1`
+  font-size: 35px;
+  font-family: 'Ubuntu Mono', monospace;
+  font-style: italic;
+  color: #000;
 `;
 
 const container = {
@@ -85,9 +93,12 @@ export default function Blog({ data }) {
         <Anchor number={number} />
         <Center>
           <Grid variants={container} initial="hidden" animate="show">
-            {blogData.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
-            ))}
+            {blogData.length 
+              ? blogData.map((blog) => (
+                <BlogCard key={blog.id} blog={blog} />
+              ))
+              : <NotFoundTitle>no blogs yet</NotFoundTitle>
+            }
           </Grid>
         </Center>
         <BigTitle text="blog" top="5rem" left="5rem" />

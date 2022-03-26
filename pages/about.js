@@ -58,10 +58,6 @@ const Main = styled(motion.div)`
   font-family: 'Ubuntu Mono', monospace;
   font-style: italic;
 
-  p {
-    margin: 10px 0;
-  }
-
   ${mediaQueries(40)`
     width: 60vw;
     height: 50vh;
@@ -115,7 +111,7 @@ export default function About({ data }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
         >
-          {parse(aboutData.text.html)}
+          {parse(aboutData.text)}
         </Main>
         <BigTitle text='about' top='10%' left='5%' />
       </Box>

@@ -30,9 +30,7 @@ export const getAboutPageData = async () => {
 	const query = gql`
 		query MyQuery {
 		  aboutPages(first: 1) {
-		    text {
-		      html
-		    }
+		    text
 		  }
 		  pageTitles(first: 1) {
 		    about
