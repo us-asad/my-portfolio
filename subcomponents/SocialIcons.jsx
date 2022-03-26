@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { getSocialMediaAccounts } from "services";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Github, Twitter, Facebook, YouTube, Telegram, LinkedIn, DevTo } from "components/AllSvg.jsx";
+import { Github, Twitter, Facebook, YouTube, Telegram, LinkedIn, DevTo, Instagram } from "components/AllSvg.jsx";
 import data, { darkTheme, mediaQueries } from "data";
+
+const socialMediaIcons = ["github", "twitter", "facebook", "youtube", "telegram", "linkedin", "devto", "instagram"];
 
 const motionAnimationConfig = delay => ({
   initial: {
@@ -52,10 +55,15 @@ const Line = styled(motion.span)`
 `;
 
 export default function SocialIcons({ theme }) {
+  const [socialAccounts, setSocialAccounts] = useState([]);
   const [lineWidth, setLineWidth] = useState(0);
 
   useEffect(() => {
-    setLineWidth(window.matchMedia("(max-width: 40em)").matches)
+    setLineWidth(window.matchMedia("(max-width: 40em)").matches);
+
+    getSocialMediaAccounts()
+      .then(res => setSocialAccounts(res))
+      .catch(err => console.error("Fetch Social Media Accounts Error: ",err));
   },[]);
 
   const svgStyleConfig = {
@@ -65,20 +73,17 @@ export default function SocialIcons({ theme }) {
   }
 
   const getSocialAccounts = () => {
-    const socialMediaIcons = ["github", "twitter", "facebook", "youtube", "telegram", "linkedin", "devto"];
-    const socialAccountsUrl = data.socialAccounts;
-
-    return socialAccountsUrl.map(({name: accountName, url: accountUrl}) => {
+    return socialAccounts.map(({socialMediaName, socialMediaUrl}) => {
       let icon = null;
       socialMediaIcons.forEach((iconName) => {
-        if(accountName.toLowerCase().trim() === iconName.toLowerCase().trim()) {
+        if(socialMediaName.toLowerCase().trim() === iconName.toLowerCase().trim()) {
           icon = iconName;
         }
       });
 
       return {
         iconName: icon,
-        url: accountUrl
+        url: socialMediaUrl
       }
     });
   }
@@ -105,6 +110,8 @@ export default function SocialIcons({ theme }) {
                 ? <LinkedIn {...svgStyleConfig} />
                 : iconName === "devto"
                 ? <DevTo {...svgStyleConfig} />
+                : iconName === "instagram"
+                ? <Instagram {...svgStyleConfig} />
                 : iconName
               }
             </a>

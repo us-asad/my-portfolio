@@ -1,9 +1,10 @@
 import Head from "next/head";
+import { getAboutPageData } from "services";
 import { motion } from 'framer-motion'
 import styled, { keyframes, ThemeProvider } from 'styled-components'
 import parse from 'html-react-parser';
 import { SocialIcons, PowerButton, Logo, ParticleComponent, BigTitle } from "subcomponents";
-import data, { darkTheme, mediaQueries } from 'data'
+import { darkTheme, mediaQueries } from 'data'
 
 const Box = styled(motion.div)`
   background-color: ${({theme}) => theme.body};
@@ -47,7 +48,7 @@ const Main = styled(motion.div)`
   z-index: 3;
   line-height: 1.5;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   font-size: calc(0.6rem + 1vw);
   backdrop-filter: blur(4px);
@@ -56,6 +57,10 @@ const Main = styled(motion.div)`
   top: 10rem;
   font-family: 'Ubuntu Mono', monospace;
   font-style: italic;
+
+  p {
+    margin: 10px 0;
+  }
 
   ${mediaQueries(40)`
     width: 60vw;
@@ -78,11 +83,14 @@ const Main = styled(motion.div)`
   `};
 `;
 
-export default function About() {
+export default function About({ data }) {
+  console.log(data)
+  const { aboutData, aboutPageTitle } = data;
+
   return (
     <>
       <Head>
-        <title>{data.customTitles.about}</title>
+        <title>{aboutPageTitle}</title>
       </Head>
       <ThemeProvider theme={darkTheme}>
         <Box
@@ -108,11 +116,21 @@ export default function About() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
           >
-            {parse(data.about.text)}
+            {parse(aboutData.text.html)}
           </Main>
           <BigTitle text='about' top='10%' left='5%' />
         </Box>
       </ThemeProvider>
     </>
-  )
+  );
+}
+
+export async function getStaticProps() {
+  const data = await getAboutPageData();
+
+  return {
+    props: {
+      data
+    }
+  }
 }

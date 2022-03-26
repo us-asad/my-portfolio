@@ -125,13 +125,14 @@ const item = {
 
 export default function WorkCard({ data }) {
   const { id, name, description, tags, demo, github } = data;
+  const tagsArr = tags.split(" ");
 
   return (
     <Box key={id} variants={item}>
       <Title>{name}</Title>
       <Description>{description}</Description>
       <Tags>
-        {tags.map((tag, index) => (
+        {tagsArr.map((tag, index) => (
           <Tag key={index}>#{tag}</Tag>
         ))}
       </Tags>

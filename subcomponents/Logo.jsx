@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getLogoName } from "services";
 import styled from "styled-components";
 import data, { darkTheme, mediaQueries } from "data";
 
@@ -20,9 +22,17 @@ const Logo = styled.h1`
 `;
 
 export default function LogoComponent({ theme }) {
+  const [logoName, setLogoName] = useState("");
+
+  useEffect(() => {
+    getLogoName()
+      .then(res => setLogoName(res))
+      .catch(err => console.error("Fetch Logo Name Error: ",err));
+  }, []);
+
   return (
     <Link href="/" passHref>
-      <Logo color={theme}>{data.homeLogoName}</Logo>
+      <Logo color={theme}>{logoName}</Logo>
     </Link>
   );
 };

@@ -142,7 +142,7 @@ const Text = styled(motion.div)`
 	`};
 `;
 
-const Intro = () => {
+export default function Intro(props) {
   const [height, setHeight] = useState("55vh");
 
   useEffect(() => {
@@ -163,7 +163,9 @@ const Intro = () => {
     >
       <SubBox>
         <Text>
-          {parse(data.introText)}
+          <h1>{props.textH1}</h1>
+          <h2>{props.textH2}</h2>
+          <h6>{props.textH6}</h6>
         </Text>
       </SubBox>
       <SubBox>
@@ -178,5 +180,3 @@ const Intro = () => {
     </Box>
   );
 };
-
-export default Intro;

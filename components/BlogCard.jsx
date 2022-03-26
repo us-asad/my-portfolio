@@ -37,7 +37,7 @@ const Box = styled(motion.a)`
   `};
 `;
 
-const Image = styled.div`
+const ImageComponent = styled.div`
   background-image: ${(props) => `url(${props.img})`};
   width: 100%;
   height: 60%;
@@ -103,15 +103,16 @@ const item = {
 };
 
 export default function BlogCard({ blog }) {
-  const { name, tags, date, imgSrc, link } = blog;
+  const { title, tags, date, image, link } = blog;
+  const tagsArr = tags.split(" ")
 
   return (
     <Container variants={item}>
       <Box target="_blank" href={link}>
-        <Image img={imgSrc} />
-        <Title>{name}</Title>
+        <ImageComponent img={image.url} />
+        <Title>{title}</Title>
         <HashTags>
-          {tags.map((tag, index) => (
+          {tagsArr.map((tag, index) => (
             <Tag key={index}>#{tag}</Tag>
           ))}
         </HashTags>

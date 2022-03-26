@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import { getBlogPageData } from "services";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { BlogCard } from "components";
 import { Anchor, SocialIcons, PowerButton, Logo, BigTitle } from "subcomponents";
-import data ,{ mediaQueries } from "data";
+import { mediaQueries } from "data";
 
 const MainContainer = styled(motion.div)`
   background-image: url(/images/blog-bg.jpg);
@@ -57,8 +58,10 @@ const container = {
   },
 };
 
-export default function Blog() {
+export default function Blog({ data }) {
   const [number, setNumber] = useState(0);
+
+  const { blogData, blogPageTitle } = data;
 
   useEffect(() => {
     let num = (window.innerHeight - 70) / 30;
@@ -68,7 +71,7 @@ export default function Blog() {
   return (
     <>
       <Head>
-        <title>{data.customTitles.blog}</title>
+        <title>{blogPageTitle}</title>
       </Head>
       <MainContainer
         variants={container}
@@ -83,7 +86,7 @@ export default function Blog() {
           <Anchor number={number} />
           <Center>
             <Grid variants={container} initial="hidden" animate="show">
-              {data.blogData.map((blog) => (
+              {blogData.map((blog) => (
                 <BlogCard key={blog.id} blog={blog} />
               ))}
             </Grid>
@@ -94,3 +97,15 @@ export default function Blog() {
     </>
   );
 };
+
+
+export async function getStaticProps() {
+  const data = await getBlogPageData();
+
+  return {
+    props: {
+      data
+    }
+  }
+}
+

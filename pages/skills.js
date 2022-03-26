@@ -1,9 +1,10 @@
 import Head from "next/head";
+import { getSkillsPageData } from "services";
 import { motion } from "framer-motion";
 import styled, { ThemeProvider } from "styled-components";
-import data, { lightTheme, mediaQueries } from "data";
 import { SocialIcons, PowerButton, Logo, ParticleComponent, BigTitle } from "subcomponents";
 import { Design, Develope } from "components/AllSvg.jsx";
+import { lightTheme, mediaQueries } from "data";
 
 const Box = styled(motion.div)`
   background-color: ${({theme}) => theme.body};
@@ -130,11 +131,13 @@ const Description = styled.div`
   `};
 `;
 
-export default function MySkillsPage() {
+export default function Skills({ data }) {
+  const { skillsData, skillsPageTitle } = data;
+
   return (
     <>
       <Head>
-        <title>{data.customTitles.skills}</title>
+        <title>{skillsPageTitle}</title>
       </Head>
       <ThemeProvider theme={lightTheme}>
         <Box
@@ -149,18 +152,18 @@ export default function MySkillsPage() {
           <ParticleComponent theme="light" />
           <Main>
             <Title>
-              <Develope width={40} height={40} /> {data.skills.title}
+              <Develope width={40} height={40} /> {skillsData.title}
             </Title>
             <Description>
-              {data.skills.subtitle}
+              {skillsData.subtitle}
             </Description>
             <Description>
               <strong>Skills</strong> <br />
-              <p>{data.skills.skills}</p>
+              <p>{skillsData.skills}</p>
             </Description>
             <Description>
               <strong>Tools</strong> <br />
-              <p>{data.skills.tools}</p>
+              <p>{skillsData.tools}</p>
             </Description>
           </Main>
           <BigTitle text="skills" top="80%" right="30%" />
@@ -169,3 +172,13 @@ export default function MySkillsPage() {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const data = await getSkillsPageData();
+
+  return {
+    props: {
+      data
+    }
+  }
+}

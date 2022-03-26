@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { getHomePageData } from "services";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import { YinYang } from "components/AllSvg.jsx";
 import { Intro } from "components";
 import { PowerButton, SocialIcons, Logo } from "subcomponents";
-import data, { mediaQueries } from "data";
+import { mediaQueries } from "data";
 
 const motionHoverConfig = {
   whileHover: {
@@ -191,9 +192,11 @@ const DarkDiv = styled.div`
   };
 `;
 
-export default function Home() {
+export default function Home({ data }) {
   const [clicked, setClicked] = useState(false);
   const [path, setPath] = useState("");
+
+  const { homeData, homePageTitle } = data;
 
   const handleClick = () => setClicked(!clicked);
 
@@ -208,7 +211,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>{data.customTitles.home}</title>
+        <title>{homePageTitle}</title>
       </Head> 
       <MainContainer
         key="modal"
@@ -235,7 +238,7 @@ export default function Home() {
             clicked={isMobileBreakpoint ? +clicked : 0}
             target="_blank"
             rel="noreferrer"
-            href={data.email}
+            href={`mailto:${homeData.email}`}
             title={data.email}
           >
             <motion.h3
@@ -289,7 +292,7 @@ export default function Home() {
                 </motion.h2>
               </About>
             </Link>
-            <Link href="skills" passHref>
+            <Link href="/skills" passHref>
               <Skills>
                 <motion.h2
                   onClick={() => setPath("Skills")}
@@ -302,8 +305,23 @@ export default function Home() {
             </Link>
           </BottomBar>
         </Container>
-        {clicked ? <Intro clicked={clicked} /> : null}
+        {clicked ? <Intro
+            textH1={homeData.introH1Text}
+            textH2={homeData.introH2Text}
+            textH6={homeData.introH6Text}
+            clicked={clicked}
+          /> : null}
       </MainContainer>
     </>
   );
 };
+
+export async function getStaticProps() {
+  const data = await getHomePageData();
+
+  return {
+    props: {
+      data
+    }
+  }
+}

@@ -1,17 +1,18 @@
 import { useEffect, useRef } from "react";
 import Head from "next/head";
+import { getWorkPageData } from "services";
 import { motion } from "framer-motion";
 import styled, { ThemeProvider } from "styled-components";
 import { YinYang } from "components/AllSvg.jsx";
 import { WorkCard } from "components";
 import { SocialIcons, PowerButton, Logo, BigTitle } from "subcomponents";
-import data, { darkTheme, mediaQueries } from "data";
+import { darkTheme, mediaQueries } from "data";
 
 const Box = styled(motion.div)`
   background-color: ${({theme}) => theme.body};
   position: relative;
   display: flex;
-  height: 370vh;
+  height: ${({worksLength}) => worksLength * 60}vh;
 `;
 
 const Main = styled(motion.ul)`
@@ -80,9 +81,11 @@ const container = {
   },
 };
 
-export default function Work() {
+export default function Work({ data }) {
   const ref = useRef(null);
   const yinyang = useRef(null);
+
+  const { workData, workPageTitle } = data;
 
   useEffect(() => {
     let element = ref.current;
@@ -100,10 +103,11 @@ export default function Work() {
   return (
     <>
       <Head>
-        <title>{data.customTitles.work}</title>
+        <title>{workPageTitle}</title>
       </Head>
       <ThemeProvider theme={darkTheme}>
         <Box
+          worksLength={workData.length}
           key="work"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 1 } }}
@@ -113,7 +117,7 @@ export default function Work() {
           <PowerButton />
           <SocialIcons theme="dark" />
           <Main ref={ref} variants={container} initial="hidden" animate="show">
-            {data.workData.map((data,index) => <WorkCard key={index} data={data} />)}
+            {workData.map(data => <WorkCard key={data.id} data={data} />)}
           </Main>
           <BigTitle text="work" top="10%" right="20%" />
           <Rotate ref={yinyang}>
@@ -124,3 +128,13 @@ export default function Work() {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const data = await getWorkPageData();
+
+  return {
+    props: {
+      data
+    }
+  }
+}
