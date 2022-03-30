@@ -57,8 +57,8 @@ export const getWorkPageData = async () => {
 		    id
 		    tags
 		    description
-		    demoUrl
-		    githubUrl
+		    demo
+		    github
 		  }
 		}
 	`;
