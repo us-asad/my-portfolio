@@ -80,7 +80,7 @@ export default function SoundBar() {
   return (
     <Box onClick={() => handleClick()}>
       {[...new Array(5)].map((_,index) => <Line key={index} click={clicked} />)}
-      <audio src="/audio/music.mp3" ref={ref} loop />
+      <audio src="/music.mp3" ref={ref} loop />
     </Box>
   );
 };
